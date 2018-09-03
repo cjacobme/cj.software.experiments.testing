@@ -1,5 +1,7 @@
 package cj.software.movie.repository;
 
+import java.util.Optional;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,6 +18,13 @@ public class MovieRepository
 	{
 		Movie lMerged = this.entityManager.merge(pMovie);
 		return lMerged.getId();
+	}
+
+	public Optional<Movie> findById(Long pMovieId)
+	{
+		Movie lFound = this.entityManager.find(Movie.class, pMovieId);
+		Optional<Movie> lResult = Optional.ofNullable(lFound);
+		return lResult;
 	}
 
 }
