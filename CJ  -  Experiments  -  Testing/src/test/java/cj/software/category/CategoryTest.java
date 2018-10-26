@@ -24,4 +24,11 @@ public class CategoryTest
 	{
 		this.logger.info("component only");
 	}
+
+	@Test
+	@Category(UnitTest.class)
+	public void unit()
+	{
+		this.logger.info("unit");
+	}
 }
