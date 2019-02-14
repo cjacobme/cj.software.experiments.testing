@@ -68,10 +68,15 @@ public class ArquillianBaseTest
 				.addAsLibraries(lSwarmFiles)
 				.addAsLibraries(lLog4jCoreFiles)
 				.addAsResource("log4j2.xml")
-				.addAsResource("project-defaults.yml")
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 		System.out.println(lResult.toString(true));
+		System.setProperty("swarm.datasources.data-sources.MyDS.driver-name", "postgresql");
+		System.setProperty(
+				"swarm.datasources.data-sources.MyDS.connection-url",
+				"jdbc:postgresql://localhost:5432/experiments");
+		System.setProperty("swarm.datasources.data-sources.MyDS.user-name", "experiments");
+		System.setProperty("swarm.datasources.data-sources.MyDS.password", "experiments");
 		return lResult;
 	}
 
