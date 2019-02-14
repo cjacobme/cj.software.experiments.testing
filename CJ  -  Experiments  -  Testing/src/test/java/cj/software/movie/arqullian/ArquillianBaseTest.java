@@ -1,11 +1,13 @@
 package cj.software.movie.arqullian;
 
 import java.io.File;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -66,6 +68,7 @@ public class ArquillianBaseTest
 				.addAsLibraries(lSwarmFiles)
 				.addAsLibraries(lLog4jCoreFiles)
 				.addAsResource("log4j2.xml")
+				.addAsResource("project-defaults.yml")
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 		System.out.println(lResult.toString(true));
@@ -79,5 +82,28 @@ public class ArquillianBaseTest
 		Assert.assertNotNull("movie service", this.movieService);
 		Assert.assertNotNull("movie repo", this.movieRepository);
 		this.logger.info("all checked");
+	}
+
+	@Test
+	public void insertMovies()
+	{
+		long lId1 = this.movieRepository.save(
+				this.createMovie("ein gutes Jahr", "Ridley Scott", 2006));
+		this.logger.info("Movie has id %d: %s", lId1, "ein gutes Jahr");
+		long lId2 = this.movieRepository.save(this.createMovie("Apollo 13", "Ron Howard", 1995));
+		this.logger.info("Movie has id %d: %s", lId2, "Apollo 13");
+		Query lQuery = this.entityManager.createQuery("SELECT COUNT(*) FROM Movie");
+		List<?> lResultList = lQuery.getResultList();
+		Number lResult = (Number) lResultList.get(0);
+		Assert.assertEquals(2, lResult.longValue());
+	}
+
+	private Movie createMovie(String pTitle, String pDirector, int pYear)
+	{
+		Movie lResult = new Movie();
+		lResult.setTitle(pTitle);
+		lResult.setDirector(pDirector);
+		lResult.setReleaseYear(pYear);
+		return lResult;
 	}
 }

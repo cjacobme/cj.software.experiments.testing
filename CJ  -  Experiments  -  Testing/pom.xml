@@ -23,6 +23,7 @@
 		<wildfly.swarm.version>2017.4.0</wildfly.swarm.version>
 		<commons-lang3.version>3.6</commons-lang3.version>
 		<log4j2.version>2.10.0</log4j2.version>
+		<postgresql.version>42.1.4</postgresql.version>
 	</properties>
 
 	<dependencyManagement>
@@ -112,10 +113,17 @@
 			<groupId>org.wildfly.swarm</groupId>
 			<artifactId>datasources</artifactId>
 		</dependency>
+		<!-- 
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<version>1.4.195</version>
+		</dependency>
+		-->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgresql.version}</version>
 		</dependency>
 
 		<dependency>
