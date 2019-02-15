@@ -27,7 +27,7 @@ import cj.software.movie.service.MovieLoader;
 import cj.software.movie.service.MovieService;
 
 @RunWith(Arquillian.class)
-public class ArquillianBaseTest
+public class ArquillianBaseIT
 {
 	@Inject
 	private MovieService movieService;
@@ -59,7 +59,7 @@ public class ArquillianBaseTest
 				.withoutTransitivity()
 				.asFile();
 		WebArchive lResult = ShrinkWrap
-				.create(WebArchive.class, ArquillianBaseTest.class + ".war")
+				.create(WebArchive.class, ArquillianBaseIT.class + ".war")
 				.addClasses(
 						MovieLoader.class,
 						MovieService.class,
