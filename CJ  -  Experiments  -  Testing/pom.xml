@@ -61,16 +61,21 @@
 				</executions>
 			</plugin>
 			<plugin>
-			    <groupId>org.apache.maven.plugins</groupId>
-			    <artifactId>maven-failsafe-plugin</artifactId>
-			    <executions>
-			    	<execution>
-			    		<goals>
-			    			<goal>integration-test</goal>
-			    			<goal>verify</goal>
-			    		</goals>
-			    	</execution>
-			    </executions>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<configuration>
+					<systemPropertyVariables>
+						<arquillian.launch>wildfly-swarm</arquillian.launch>
+					</systemPropertyVariables>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
@@ -125,13 +130,8 @@
 			<groupId>org.wildfly.swarm</groupId>
 			<artifactId>datasources</artifactId>
 		</dependency>
-		<!-- 
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<version>1.4.195</version>
-		</dependency>
-		-->
+		<!-- <dependency> <groupId>com.h2database</groupId> <artifactId>h2</artifactId> 
+			<version>1.4.195</version> </dependency> -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>

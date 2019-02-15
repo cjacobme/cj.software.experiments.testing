@@ -1,14 +1,15 @@
 package cj.software.movie.repository;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -25,6 +26,18 @@ public class MovieRepositoryTest
 	private EntityManager entityManager;
 
 	private MovieRepository repository;
+
+	@BeforeClass
+	public static void setSystemProperties()
+	{
+		System.setProperty("com.cj.required.example", "ok");
+	}
+
+	@AfterClass
+	public static void clearSystemProperties()
+	{
+		System.clearProperty("com.cj.required.example");
+	}
 
 	@Before
 	public void setupRepository()

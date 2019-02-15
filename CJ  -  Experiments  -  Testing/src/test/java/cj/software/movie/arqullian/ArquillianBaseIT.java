@@ -1,7 +1,10 @@
 package cj.software.movie.arqullian;
 
+import static org.assertj.core.api.Assertions.*;
+
 import java.io.File;
 import java.util.List;
+import java.util.Optional;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -50,6 +53,12 @@ public class ArquillianBaseIT
 				.resolve(lSwarmJpaCoordinates)
 				.withTransitivity()
 				.asFile();
+		File[] lAssertJFiles = Maven
+				.resolver()
+				.loadPomFromFile("pom.xml")
+				.resolve("org.assertj:assertj-core")
+				.withTransitivity()
+				.asFile();
 		String lLog4jCoreCoordinates = "org.apache.logging.log4j:log4j-core";
 		String lLog4jApiCoordinate = "org.apache.logging.log4j:log4j-api";
 		File[] lLog4jCoreFiles = Maven
@@ -67,6 +76,7 @@ public class ArquillianBaseIT
 						Movie.class)
 				.addAsLibraries(lSwarmFiles)
 				.addAsLibraries(lLog4jCoreFiles)
+				.addAsLibraries(lAssertJFiles)
 				.addAsResource("log4j2.xml")
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -101,6 +111,10 @@ public class ArquillianBaseIT
 		List<?> lResultList = lQuery.getResultList();
 		Number lResult = (Number) lResultList.get(0);
 		Assert.assertEquals(2, lResult.longValue());
+
+		Optional<Movie> lLoaded = this.movieRepository.findById(lId2);
+		assertThat(lLoaded).as("loaded with id %d", lId2).isPresent();
+		assertThat(lLoaded.get().getTitle()).isEqualTo("Apollo 13");
 	}
 
 	private Movie createMovie(String pTitle, String pDirector, int pYear)
