@@ -22,12 +22,6 @@ public class LoggedTest
 			.build();
 
 	@Test
-	public void one()
-	{
-		assertThat("one").isEqualTo("two");
-	}
-
-	@Test
 	public void sysPropSet()
 	{
 		String lValue = System.getProperty("one");
