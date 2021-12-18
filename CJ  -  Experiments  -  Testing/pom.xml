@@ -22,7 +22,7 @@
 		<mockito.version>2.15.0</mockito.version>
 		<wildfly.swarm.version>2017.4.0</wildfly.swarm.version>
 		<commons-lang3.version>3.6</commons-lang3.version>
-		<log4j2.version>2.16.0</log4j2.version>
+		<log4j2.version>2.17.0</log4j2.version>
 		<postgresql.version>42.1.4</postgresql.version>
 	</properties>
 
