@@ -23,7 +23,7 @@
 		<wildfly.swarm.version>2017.4.0</wildfly.swarm.version>
 		<commons-lang3.version>3.6</commons-lang3.version>
 		<log4j2.version>2.17.1</log4j2.version>
-		<postgresql.version>42.3.3</postgresql.version>
+		<postgresql.version>42.4.1</postgresql.version>
 	</properties>
 
 	<dependencyManagement>
